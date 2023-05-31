@@ -1,5 +1,5 @@
-#include "jsonserializer.hpp"
-#include "json.hpp"
+#include "jsonserializer.h"
+#include "json.h"
 #include <iostream>
 #include <fstream>
 
@@ -59,7 +59,7 @@ void serializeTimers(vector<tuple<string, string, int, int,
     nlohmann::json j_tmp, j_res;
     std::vector<nlohmann::json> j_vec(in_vec.size());
 
-    for (int i = 0; i < in_vec.size(); i++) {
+    for (int i = 0; i < (int)in_vec.size(); i++) {
 
         j_tmp["activity"] = std::get<0>(in_vec[i]);
         j_tmp["user"] = std::get<1>(in_vec[i]);
@@ -75,6 +75,21 @@ void serializeTimers(vector<tuple<string, string, int, int,
 
     std::ofstream out(file_name);
     out << std::setw(2) << j_vec;
+    out.close();
+}
+
+
+void serializeStats(vector<map<string, map<string, int> > > tmp, string file_name)
+{
+    nlohmann::json j_tmp, j_res;
+    vector<nlohmann::json> j_vec(1);
+    j_tmp["workTime"] = tmp[0];
+    j_tmp["completedPomodoros"] = tmp[1];
+    j_tmp["restTime"] = tmp[2];
+    j_vec[0] = j_tmp;
+
+    ofstream out(file_name);
+    out <<  setw(2) << j_vec;
     out.close();
 }
 
@@ -132,7 +147,7 @@ vector<tuple<string, string, int, vector<int>>> deserializeActivities(string fil
     in.close();
 
     for (auto x:j) {
-        
+
         string title = x["title"];
         string user = x["user"];
         int id = x["id"];
@@ -157,7 +172,7 @@ vector<tuple<string, string, int, int, int, int, int, int>> deserializeTimers(st
     in.close();
 
     for (auto x:j) {
-        
+
         string activity = x["activity"];
         string user = x["user"];
         int id = x["id"];
@@ -173,4 +188,24 @@ vector<tuple<string, string, int, int, int, int, int, int>> deserializeTimers(st
     }
 
     return out_vec;
+}
+
+
+vector<map<string, map<string, int> > > deserializeStats(string file_name)
+{
+    nlohmann::json j;
+    std::ifstream in(file_name);
+
+    in >> j;
+    in.close();
+    vector<map<string, map<string, int> > > tmp;
+    for (auto x:j) {
+        map<string, map<string, int> > workedTime = x["workTime"];
+        map<string, map<string, int> > completedPomodoros = x["completedPomodoros"];
+        map<string, map<string, int> > restTime = x["restTime"];
+        tmp.push_back(workedTime);
+        tmp.push_back(completedPomodoros);
+        tmp.push_back(restTime);
+    }
+    return tmp;
 }

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>img/RestPomodoro.jpg</file>
+        <file>img/WorkPomodoro.jpg</file>
+    </qresource>
+</RCC>
