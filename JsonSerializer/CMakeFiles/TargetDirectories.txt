@@ -1,0 +1,3 @@
+D:/Apps/CompP/NewOOP/JsonSerializer/CMakeFiles/JsonSerializer.dir
+D:/Apps/CompP/NewOOP/JsonSerializer/CMakeFiles/ALL_BUILD.dir
+D:/Apps/CompP/NewOOP/JsonSerializer/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 2,
+    "timers": [
+      3
+    ],
+    "title": "1",
+    "user": "1"
+  },
+  {
+    "id": 4,
+    "timers": [],
+    "title": "test",
+    "user": "1"
+  }
+]
